@@ -57,14 +57,14 @@
 
 <script>
   export default {
-    data () {
+    data() {
       return {
         item: {
-          text: 'Get Started'
-        }
-      }
-    }
-  }
+          text: 'Get Started',
+        },
+      };
+    },
+  };
 </script>
 
 <style lang="stylus">

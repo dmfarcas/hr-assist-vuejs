@@ -15,6 +15,13 @@ module.exports = {
   },
   module: {
     rules: [
+      // only lint local *.vue files
+      {
+        enforce: 'pre',
+        test: /.vue$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/
+      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
