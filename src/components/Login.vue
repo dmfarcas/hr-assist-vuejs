@@ -2,7 +2,7 @@
   <form @submit.prevent="login" :class="{ error: failed }">
     <input v-model="user.email" type="email" placeholder="Email Address" autofocus required>
     <input v-model="user.password" type="password" placeholder="Password" required>
-    <button type="submit">Log In</button>
+    <button @keyup.enter="submit">Log In</button>
   </form>
 </template>
 

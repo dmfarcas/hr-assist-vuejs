@@ -1,3 +1,4 @@
+/* TODO THIS SHOULD NOT EXIST, LAYER DE ABSTRACTIE DEGEABA */
 import NProgress from 'nprogress';
 import http from '../services/http';
 

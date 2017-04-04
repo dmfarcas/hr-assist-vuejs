@@ -1,22 +1,38 @@
 <template>
-  <h1>Hello Dashboard</h1>
+  <div>
+    <h1>Hello Dashboard</h1>
+    <button v-on:click="logout">Log out.</button>
+    <br />
+    {{ user }}
+    {{ technologies }}
+  </div>
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
 import http from '../services/http';
 
 export default {
   name: 'hello',
-  data() {
-    return {
-      msg: 'Welcome to Your Vue.js App',
-    };
-  },
+  computed: mapState({ user: state => state.user }),
   created() {
-    http.get('technologies', (success) => {
+    http.get('technologies', (success) => { // TODO SHOULD BE MAPPED TO STATE
       console.log(success);
     }, (error) => { console.log(error); });
   },
+  methods: {
+    ...mapActions([
+      'USER_LOGOUT',
+    ]),
+    logout() {
+      this.USER_LOGOUT()
+        .then(() => {
+          console.log('se Intampla');
+          this.$router.replace({ path: '/login' });
+        });
+    },
+  },
+
 };
 </script>
 

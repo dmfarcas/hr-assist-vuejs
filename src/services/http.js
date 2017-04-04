@@ -1,7 +1,6 @@
 import axios from 'axios';
 import NProgress from 'nprogress';
 import config from '../config';
-import ls from './ls';
 
 /**
  * Responsible for all HTTP requests.
@@ -40,7 +39,7 @@ const http = {
     // Intercept the request to make sure the token is injected into the header.
     axios.interceptors.request.use((conf) => {
       const configWithBearer = conf;
-      configWithBearer.headers.token = `${ls.get('token')}`;
+      configWithBearer.headers.token = `${sessionStorage.getItem('token')}`;
       return configWithBearer;
     });
 
@@ -52,7 +51,7 @@ const http = {
       // we don't need to intercept if already logged
       const token = response.data.user ? response.data.user.auth_token : false;
       if (token) {
-        ls.set('token', token);
+        sessionStorage.setItem('token', token);
       }
 
       return response;

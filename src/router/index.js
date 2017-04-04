@@ -3,7 +3,6 @@ import Router from 'vue-router';
 import Login from '@/components/Login';
 import Technologies from '@/components/Technologies';
 import Dashboard from '@/components/Dashboard';
-import ls from '../services/ls';
 
 Vue.use(Router);
 
@@ -34,7 +33,7 @@ const router = new Router({
 
 
 router.beforeEach(({ meta, path }, from, next) => {
-  const isLoggedIn = ls.get('token');
+  const isLoggedIn = sessionStorage.getItem('token');
   if (!isLoggedIn && path !== '/login') {
     return next({ path: '/login' });
   }

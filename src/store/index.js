@@ -20,9 +20,11 @@ const state = {
 const mutations = {
   USER_LOGIN(state, user) {
     Object.assign(state, user);
+    sessionStorage.setItem('user', JSON.stringify(user));
   },
   USER_LOGOUT(state) {
     sessionStorage.removeItem('user');
+    sessionStorage.removeItem('token');
     Object.keys(state).forEach(k => Vue.delete(state, k));
   },
 };
@@ -32,13 +34,12 @@ const mutations = {
 const actions = {
   USER_LOGIN: ({ commit }, user) => {
     userStore.login(user.email, user.password).then((userInformation) => {
-      sessionStorage.setItem('user', JSON.stringify(userInformation));
-      commit('USER_LOGIN', userInformation);
+      commit('USER_LOGIN', userInformation.user);
     }).catch((e) => {
-      console.log(e);
-      commit('USER_LOGIN', null); // La revedere!
+      commit('USER_LOGIN', e); // La revedere!
     });
   },
+  USER_LOGOUT: ({ commit }) => commit('USER_LOGOUT'),
 };
 
 // getters are functions
