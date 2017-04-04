@@ -3,6 +3,7 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
+import http from './services/http';
 
 Vue.config.productionTip = false;
 
@@ -12,4 +13,7 @@ new Vue({
   router,
   template: '<App/>',
   components: { App },
+  created() {
+    http.init();
+  },
 });
