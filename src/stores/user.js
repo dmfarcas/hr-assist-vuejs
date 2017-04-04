@@ -7,7 +7,6 @@ const userStore = {
 
     return new Promise((resolve, reject) => {
       http.post('login', { email, password }, ({ data }) => {
-        console.log(data);
         resolve(data);
       }, error => reject(error));
     });

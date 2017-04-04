@@ -1,35 +1,40 @@
 <template>
   <form @submit.prevent="login" :class="{ error: failed }">
-    <input v-model="email" type="email" placeholder="Email Address" autofocus required>
-    <input v-model="password" type="password" placeholder="Password" required>
+    <input v-model="user.email" type="email" placeholder="Email Address" autofocus required>
+    <input v-model="user.password" type="password" placeholder="Password" required>
     <button type="submit">Log In</button>
   </form>
 </template>
 
 <script>
-import userStore from '../stores/user';
+import { mapActions } from 'vuex';
 
 export default {
   data() {
     return {
-      email: '',
-      password: '',
+      user: {
+        email: '',
+        password: '',
+      },
       failed: false,
     };
   },
 
   methods: {
+    ...mapActions([
+      'USER_LOGIN',
+    ]),
     login() {
+      this.USER_LOGIN(this.user)
+        .then(() => {
+          this.$router.replace({ path: '/dashboard' });
+        });
       this.failed = false;
 
-      userStore.login(this.email, this.password).then(() => {
-        this.failed = false;
-
-        // Reset the password so that the next login will have this field empty.
-        this.password = '';
-      }).catch(() => {
-        this.failed = true;
-      });
+      // Reset the password so that the next login will have this field empty.
+      this.password = '';
+    },
+    created() {
     },
   },
 };

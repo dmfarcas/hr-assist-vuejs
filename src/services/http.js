@@ -1,8 +1,6 @@
 import axios from 'axios';
 import NProgress from 'nprogress';
 import config from '../config';
-
-// import { event } from '../utils'
 import ls from './ls';
 
 /**
@@ -48,13 +46,12 @@ const http = {
 
     // Intercept the response and…
     axios.interceptors.response.use((response) => {
-      console.log(response);
       NProgress.done();
 
       // …get the token from the header or response data if exists, and save it.
-      const token = response.config.headers.token;
+      // we don't need to intercept if already logged
+      const token = response.data.user ? response.data.user.auth_token : false;
       if (token) {
-        console.log('Token set.', token);
         ls.set('token', token);
       }
 

@@ -1,18 +1,18 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Hello from '@/components/Hello';
 import Login from '@/components/Login';
 import Technologies from '@/components/Technologies';
+import Dashboard from '@/components/Dashboard';
+import ls from '../services/ls';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello,
+      redirect: '/dashboard',
     },
     {
       path: '/login',
@@ -24,5 +24,21 @@ export default new Router({
       name: 'Technologies',
       component: Technologies,
     },
+    {
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: Dashboard,
+    },
   ],
 });
+
+
+router.beforeEach(({ meta, path }, from, next) => {
+  const isLoggedIn = ls.get('token');
+  if (!isLoggedIn && path !== '/login') {
+    return next({ path: '/login' });
+  }
+  return next();
+});
+
+export { router as default };
