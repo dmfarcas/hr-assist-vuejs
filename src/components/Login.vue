@@ -1,9 +1,39 @@
 <template>
-  <form @submit.prevent="login" :class="{ error: failed }">
-    <input v-model="user.email" type="email" placeholder="Email Address" autofocus required>
-    <input v-model="user.password" type="password" placeholder="Password" required>
-    <button @keyup.enter="submit">Log In</button>
-  </form>
+  <div>
+  <v-card>
+  <v-card-row class="login-card">
+    <v-card-title>
+      <img src="../assets/logo-white.svg">
+      <v-spacer></v-spacer>
+      <div>
+        <v-menu id="marriot" bottom left origin="top right">
+        </v-menu>
+      </div>
+    </v-card-title>
+  </v-card-row>
+  <v-card-text>
+    <v-card-row>
+        <form  @submit.prevent="login" :class="{ error: failed }">
+        <v-text-field
+            name="input-1"
+            label="Email address"
+            v-model="user.email" 
+            type="email" 
+          ></v-text-field>
+          <v-text-field
+            name="input-10-1"
+            label="Enter your password"
+            append-icon="remove_red_eye"
+            type="password"
+            v-model="user.password"
+          ></v-text-field>
+          <v-btn light default keyup.enter="submit" type="submit">Log In</v-btn>
+        </form>
+    </v-card-row>
+  </v-card-text>
+</v-card>
+
+  </div>
 </template>
 
 <script>
@@ -41,61 +71,11 @@ export default {
 </script>
 
 <style scoped>
-
-/**
- * I like to move it move it
- * I like to move it move it
- * I like to move it move it
- * You like to - move it!
- */
-@keyframes shake {
-  8%, 41% {
-    -webkit-transform: translateX(-10px);
-  }
-  25%, 58% {
-    -webkit-transform: translateX(10px);
-  }
-  75% {
-    -webkit-transform: translateX(-5px);
-  }
-  92% {
-    -webkit-transform: translateX(5px);
-  }
-  0%, 100% {
-    -webkit-transform: translateX(0);
-  }
+div {
+  max-width:340px;
 }
-
-form {
-  width: 280px;
-  padding: 1.8rem;
-  background: rgba(255,255,255,.08);
-  border-radius: .6rem;
-  border: 1px solid #333;
-
-  &.error {
-    border-color: #8e4947;
-    animation: shake .5s;
+  .login-card {
+    text-align:center;
+    background-color: #1e4fa1;
   }
-
-  @media only screen and (max-width : 414px) {
-    border: 0;
-    background: transparent;
-  }
-}
-
-input {
-  display: block;
-  margin-top: 12px;
-  border: 0;
-  background: #fff;
-  outline: none;
-  width: 100%;
-}
-
-button {
-  display: block;
-  margin-top: 12px;
-  width: 100%;
-}
 </style>

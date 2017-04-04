@@ -1,23 +1,31 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
-  </div>
+
+    <v-app id="app" top-toolbar footer>
+    <v-toolbar v-if="logged">
+      <v-toolbar-title>Toolbar</v-toolbar-title>
+    </v-toolbar>
+    <main>
+      <v-content>
+        <v-container fluid>
+          <router-view></router-view>
+        </v-container>
+      </v-content>
+    </main>
+  </v-app>
+
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      failed: false, // TODO
+    };
+  },
   name: 'app',
 };
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>

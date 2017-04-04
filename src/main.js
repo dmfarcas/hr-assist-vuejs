@@ -8,8 +8,8 @@ import router from './router';
 import http from './services/http';
 import store from './store';
 
-Vue.config.productionTip = false;
 Vue.use(Vuetify);
+Vue.config.productionTip = false;
 
 /*
 Tired of lying in the sunshine staying home to watch the rain
