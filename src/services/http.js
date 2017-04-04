@@ -3,7 +3,7 @@ import NProgress from 'nprogress';
 import config from '../config';
 
 // import { event } from '../utils'
-import localStorage from './localStorage';
+import ls from './ls';
 
 /**
  * Responsible for all HTTP requests.
@@ -42,18 +42,20 @@ const http = {
     // Intercept the request to make sure the token is injected into the header.
     axios.interceptors.request.use((conf) => {
       const configWithBearer = conf;
-      configWithBearer.headers.Authorization = `Bearer ${localStorage.get('jwt-token')}`;
+      configWithBearer.headers.token = `${ls.get('token')}`;
       return configWithBearer;
     });
 
     // Intercept the response and…
     axios.interceptors.response.use((response) => {
+      console.log(response);
       NProgress.done();
 
       // …get the token from the header or response data if exists, and save it.
-      const token = response.headers.Authorization || response.data.token;
+      const token = response.config.headers.token;
       if (token) {
-        localStorage.set('jwt-token', token);
+        console.log('Token set.', token);
+        ls.set('token', token);
       }
 
       return response;

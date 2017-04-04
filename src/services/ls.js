@@ -1,6 +1,6 @@
 import localStore from 'local-storage';
 
-const localStorage = {
+const ls = {
   get(key, defaultVal = null) {
     return localStore(key) || defaultVal;
   },
@@ -15,4 +15,4 @@ const localStorage = {
 };
 
 
-export { localStorage as default };
+export { ls as default };
