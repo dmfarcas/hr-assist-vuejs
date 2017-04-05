@@ -1,5 +1,5 @@
 <template lang="html">
-  <v-sidebar v-model="sidebar" fixed>
+  <v-sidebar fixed>
        <v-list dense>
 
          <v-list-item v-for="link in links">
