@@ -2,7 +2,7 @@
 
 import Vue from 'vue';
 import Vuex from 'vuex';
-import userStore from '../stores/user';
+import http from '../services/http';
 
 Vue.use(Vuex);
 
@@ -19,24 +19,29 @@ const state = {
 // for debugging purposes.
 const mutations = {
   USER_LOGIN(state, user) {
-    Object.assign(state, user);
     sessionStorage.setItem('user', JSON.stringify(user));
+    console.log('Ai facut mutatie');
+    console.log(state);
+    state.user = user;
   },
-  USER_LOGOUT(state) {
+  USER_LOGOUT() {
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('token');
-    Object.keys(state).forEach(k => Vue.delete(state, k));
+    state.user = {};
   },
 };
 
 // actions are functions that causes side effects and can involve
 // asynchronous operations.
+/* eslint arrow-body-style: 0 */
 const actions = {
   USER_LOGIN: ({ commit }, user) => {
-    userStore.login(user.email, user.password).then((userInformation) => {
-      commit('USER_LOGIN', userInformation.user);
-    }).catch((e) => {
-      commit('USER_LOGIN', e); // La revedere!
+    // Returning a promise so we can .then in the Component.
+    return new Promise((resolve, reject) => {
+      http.post('login', user, ({ data }) => {
+        commit('USER_LOGIN', data.user);
+        resolve(data.user);
+      }, error => reject(error));
     });
   },
   USER_LOGOUT: ({ commit }) => commit('USER_LOGOUT'),
@@ -44,7 +49,7 @@ const actions = {
 
 // getters are functions
 const getters = {
-  user: state => state.user,
+  userId: state => state.user.id,
 };
 
 // A Vuex instance is created by combining the state, mutations, actions,

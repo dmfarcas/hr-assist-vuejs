@@ -24,7 +24,8 @@ module.exports = {
   },
   // add your custom rules here
   'rules': {
-    'no-console':0,
+    'no-console':0, // for development.
+    'no-param-reassign': 0, // So we can mutate state in Vuex stores.
     // don't require .vue extension when importing
     'import/extensions': ['error', 'always', {
       'js': 'never',

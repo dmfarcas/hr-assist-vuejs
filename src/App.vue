@@ -1,7 +1,7 @@
 <template>
 
     <v-app id="app" top-toolbar footer>
-    <v-toolbar v-if="logged">
+    <v-toolbar v-if="userId">
       <v-toolbar-title>Toolbar</v-toolbar-title>
     </v-toolbar>
     <main>
@@ -16,11 +16,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
-  data() {
-    return {
-      failed: false, // TODO
-    };
+  computed: {
+    ...mapGetters([
+      'userId',
+    ]),
   },
   name: 'app',
 };

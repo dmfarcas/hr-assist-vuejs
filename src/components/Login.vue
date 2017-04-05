@@ -17,8 +17,8 @@
         <v-text-field
             name="input-1"
             label="Email address"
-            v-model="user.email" 
-            type="email" 
+            v-model="user.email"
+            type="email"
           ></v-text-field>
           <v-text-field
             name="input-10-1"
