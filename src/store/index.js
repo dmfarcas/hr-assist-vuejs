@@ -26,10 +26,13 @@ const mutations = {
   USER_LOGOUT() {
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('token');
-    state.user = {};
+    Object.keys(state).forEach(k => Vue.delete(state, k));
   },
   GET_EMPLOYEES(state, employees) {
     state.employees = employees;
+  },
+  GET_TECHNOLOGIES(state, technologies) {
+    state.currentTechnologies = technologies;
   },
 };
 
@@ -46,10 +49,20 @@ const actions = {
       }, error => reject(error));
     });
   },
-  USER_LOGOUT: ({ commit }) => commit('USER_LOGOUT'),
+  USER_LOGOUT: ({ commit }) => {
+    return new Promise((resolve) => {
+      commit('USER_LOGOUT');
+      resolve();
+    });
+  },
   GET_EMPLOYEES: ({ commit }) => {
     http.get('users', (employees) => {
       commit('GET_EMPLOYEES', employees.data.items);
+    }, (error) => { console.log(error); });
+  },
+  GET_TECHNOLOGIES: ({ commit }, uid) => {
+    http.get(`projects/${uid}/technologies`, (technologies) => {
+      commit('GET_TECHNOLOGIES', technologies.data);
     }, (error) => { console.log(error); });
   },
 };
