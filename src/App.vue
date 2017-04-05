@@ -1,73 +1,57 @@
 <template>
-  <v-app top-navbar>
+    <v-app id="app" class="grey darken-1" top-toolbar left-fixed-sidebar>
     <header>
-      <v-toolbar>
-        <v-toolbar-logo>HR SPA</v-toolbar-logo>
-        <v-toolbar-items>
-          <v-toolbar-item>
-            
-          </v-toolbar-item>
-        </v-toolbar-items>
-      </v-toolbar>
+      <toolbar></toolbar>
     </header>
     <main>
-      <v-content>
+      <sidebar></sidebar>
+      <v-content class="grey lighten-4 z-depth-0">
         <v-container fluid>
-          <div id="getting-started">
-            <v-card class="secondary">
-              <v-card-text class="text-xs-center">
-                <img class="logo" src="public/logo_white.png">
-              </v-card-text>
-            </v-card>
-            <p class="text-xs-center">Welcome to HR SPA with Vuetify!</p>
-            <h2 class="primary--text">Important Links</h2>
-            <div class="intro">
-              <v-list>
-                <v-list-item>
-                  <v-list-tile href="http://vuetifyjs.com" target="_blank">
-                    <v-list-tile-title>
-                      Vuetify Documentation
-                    </v-list-tile-title>
-                  </v-list-tile>
-                </v-list-item>
-                 <v-list-item>
-                    <v-list-tile href="https://github.com/vuejs/awesome-vue" target="_blank">
-                      <v-list-tile-title>
-                        Vue Awesome
-                      </v-list-tile-title>
-                    </v-list-tile>
-                </v-list-item>
-              </v-list>
-              <v-list>
-                <v-list-item>
-                  <v-list-tile href="http://vuejs.org" target="_blank">
-                    <v-list-tile-title>
-                      Vue Documentation
-                    </v-list-tile-title>
-                  </v-list-tile>
-                </v-list-item>
-              </v-list>
-            </div>
-          </div>
+          <transition name="fade" mode="out-in" appear>
+            <router-view></router-view>
+          </transition>
         </v-container>
       </v-content>
     </main>
+    <v-footer class="grey darken-2 white--text">
+      <div class="text-xs-right">© 2016</div>
+    </v-footer>
   </v-app>
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        item: {
-          text: 'Get Started'
-        }
-      }
-    }
-  }
+import Toolbar from './components/Toolbar';
+import Sidebar from './components/Sidebar';
+
+export default {
+  components: { Toolbar, Sidebar },
+  name: 'app',
+};
 </script>
 
 <style lang="stylus">
-  @import '../node_modules/vuetify/src/stylus/main'
-  @import './css/main.css'
+.fade-enter-active, .fade-leave-active
+  transition: opacity 0.2s
+
+
+.fade-enter, .fade-leave-active
+  opacity: 0
+
+
+body
+  background: rgba(0, 0, 0, .005)
+
+h6
+  margin-top: 3rem
+
+section
+  padding: 0 1rem
+
+ul
+  padding-left: 2rem
+
+.content
+  padding: 1rem 3rem 0
+
+
 </style>
