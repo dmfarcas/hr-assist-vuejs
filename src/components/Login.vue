@@ -60,7 +60,6 @@ export default {
           this.$router.replace({ path: '/dashboard' });
         });
       this.failed = false;
-
       // Reset the password so that the next login will have this field empty.
       this.password = '';
     },

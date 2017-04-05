@@ -10,6 +10,7 @@ Vue.use(Vuex);
 // each Vuex instance is just a single state tree.
 const state = {
   user: JSON.parse(sessionStorage.getItem('user')) || {},
+  employees: {},
 };
 
 // mutations are operations that actually mutates the state.
@@ -20,14 +21,15 @@ const state = {
 const mutations = {
   USER_LOGIN(state, user) {
     sessionStorage.setItem('user', JSON.stringify(user));
-    console.log('Ai facut mutatie');
-    console.log(state);
     state.user = user;
   },
   USER_LOGOUT() {
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('token');
     state.user = {};
+  },
+  GET_EMPLOYEES(state, employees) {
+    state.employees = employees;
   },
 };
 
@@ -45,6 +47,11 @@ const actions = {
     });
   },
   USER_LOGOUT: ({ commit }) => commit('USER_LOGOUT'),
+  GET_EMPLOYEES: ({ commit }) => {
+    http.get('users', (employees) => {
+      commit('GET_EMPLOYEES', employees.data.items);
+    }, (error) => { console.log(error); });
+  },
 };
 
 // getters are functions

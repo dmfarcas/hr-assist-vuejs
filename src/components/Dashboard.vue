@@ -1,25 +1,15 @@
 <template>
   <div>
-    <h1>Hello Dashboard</h1>
-    <button v-on:click="logout">Log out.</button>
-    <br />
     {{ user }}
-    {{ technologies }}
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import http from '../services/http';
 
 export default {
-  name: 'hello',
+  name: 'dashboard',
   computed: mapState({ user: state => state.user }),
-  created() {
-    http.get('technologies', (success) => { // TODO SHOULD BE MAPPED TO STATE
-      console.log(success);
-    }, (error) => { console.log(error); });
-  },
   methods: {
     ...mapActions([
       'USER_LOGOUT',
@@ -27,7 +17,6 @@ export default {
     logout() {
       this.USER_LOGOUT()
         .then(() => {
-          console.log('se Intampla');
           this.$router.replace({ path: '/login' });
         });
     },
