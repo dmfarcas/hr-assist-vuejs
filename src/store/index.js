@@ -44,9 +44,15 @@ const actions = {
     // Returning a promise so we can .then in the Component.
     return new Promise((resolve, reject) => {
       http.post('login', user, ({ data }) => {
-        commit('USER_LOGIN', data.user);
-        resolve(data.user);
-      }, error => reject(error));
+        if (data.status === 'error') {
+          reject(data);
+        } else {
+          resolve(data.user);
+          commit('USER_LOGIN', data.user);
+        }
+      }, () => {
+        reject();
+      });
     });
   },
   USER_LOGOUT: ({ commit }) => {
