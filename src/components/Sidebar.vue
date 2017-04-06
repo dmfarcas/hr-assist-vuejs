@@ -1,59 +1,40 @@
 <template lang="html">
-  <v-sidebar fixed>
-       <v-list dense>
+  <el-menu :router="true" default-active="1" class="el-menu-vertical-demo" theme="dark">
+      <el-menu-item v-for="(link, index) in links" :index="link.route" :key="index"><i :class="link.icon"></i>{{ link.title }}</el-menu-item>
+  </el-menu>
 
-         <v-list-item v-for="link in links">
-           <router-link :to="link.route" tag="li">
-             <v-list-tile>
-               <v-list-tile-avatar>
-                 <v-icon medium class="grey--text text--darken-2">{{ link.icon }}</v-icon>
-               </v-list-tile-avatar>
-               <v-list-tile-content>
-                 <v-list-tile-title v-text="link.title" />
-               </v-list-tile-content>
-             </v-list-tile>
-           </router-link>
-         </v-list-item>
-       </v-list>
-     </v-sidebar>
+
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
   name: 'sidebar',
-  computed: {
-    ...mapGetters([
-      'userId',
-    ]),
-  },
   data() {
     return {
       links: [
         {
           title: 'Dashboard',
-          icon: 'bookmark_border',
+          icon: 'el-icon-menu',
           route: '/dashboard',
         },
         {
           title: 'Projects',
-          icon: 'projects',
+          icon: 'el-icon-menu',
           route: '/projects',
         },
         {
           title: 'Employees',
-          icon: 'candidates',
+          icon: 'el-icon-menu',
           route: '/employees',
         },
         {
           title: 'Candidates',
-          icon: 'candidates',
+          icon: 'el-icon-menu',
           route: '/candidates',
         },
         {
           title: 'Holidays',
-          icon: 'holidays',
+          icon: 'el-icon-menu',
           route: '/holidays',
         },
       ],
@@ -62,5 +43,11 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
+ul {
+  height: 100vh;
+}
+.el-menu {
+  border-radius: inherit;
+}
 </style>

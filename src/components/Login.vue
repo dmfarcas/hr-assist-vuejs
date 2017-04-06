@@ -1,39 +1,19 @@
 <template>
-  <div>
-  <v-card>
-  <v-card-row class="login-card">
-    <v-card-title>
-      <img src="../assets/logo-white.svg">
-      <v-spacer></v-spacer>
-      <div>
-        <v-menu id="marriot" bottom left origin="top right">
-        </v-menu>
-      </div>
-    </v-card-title>
-  </v-card-row>
-  <v-card-text>
-    <v-card-row>
-        <form  @submit.prevent="login" :class="{ error: failed }">
-        <v-text-field
-            name="input-1"
-            label="Email address"
-            v-model="user.email"
-            type="email"
-          ></v-text-field>
-          <v-text-field
-            name="input-10-1"
-            label="Enter your password"
-            append-icon="remove_red_eye"
-            type="password"
-            v-model="user.password"
-          ></v-text-field>
-          <v-btn light default keyup.enter="submit" type="submit">Log In</v-btn>
-        </form>
-    </v-card-row>
-  </v-card-text>
-</v-card>
 
-  </div>
+  <form  @submit.prevent="login" :class="{ error: failed }">
+  User
+  <input
+      v-model="user.email"
+      type="email"
+    ></input>
+    Enter your password
+    <input
+      type="password"
+      v-model="user.password"
+    ></input>
+    <button keyup.enter="submit" type="submit">Log In</button>
+  </form>
+
 </template>
 
 <script>
