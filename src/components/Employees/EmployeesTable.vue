@@ -1,33 +1,44 @@
 <template lang="html">
-  <v-card>
-    <v-table-overflow>
-      <table>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Address</th>
-            <th>Birthday</th>
-            <th>Email</th>
-            <th>Phone</th>
-          </tr>
-        </thead>
-        <tbody>
-          <template v-for="(employee, index) in employees">
-            <tr>
-              <td>{{employee.first_name}}</td>
-              <td>{{employee.last_name}}</td>
-              <td>{{employee.address}}</td>
-              <td>{{employee.birthday}}</td>
-              <td>{{employee.email}}</td>
-              <td>{{employee.phone}}</td>
-              <td><employees-table-edit :uid="employee.id"></employees-table-edit></td>
-            </tr>
-          </template>
-        </tbody>
-      </table>
-    </v-table-overflow>
-  </v-card>
+  <el-table
+    :data="employees"
+    stripe
+    height="900"
+    style="width: 100%">
+  <el-table-column
+    prop="first_name"
+    label="First name"
+    width="180">
+  </el-table-column>
+  <el-table-column
+    prop="last_name"
+    label="Last Name"
+    width="180">
+  </el-table-column>
+  <el-table-column
+    prop="address"
+    label="Address">
+  </el-table-column>
+  <el-table-column
+    prop="birthday"
+    label="Birthday">
+  </el-table-column>
+  <el-table-column
+    prop="email"
+    label="Email">
+  </el-table-column>
+  <el-table-column
+    prop="phone"
+    label="Phone">
+  </el-table-column>
+  <el-table-column
+    label="Operations">
+    <template scope="scope">
+      <el-button
+        size="small"
+        @click="handleEdit(scope.$index, scope.row.id)">Edit</el-button>
+    </template>
+  </el-table-column>
+</el-table>
 </template>
 
 <script>
@@ -39,6 +50,9 @@ export default {
     ...mapActions([
       'GET_EMPLOYEES',
     ]),
+    handleEdit(index, id) {
+      this.$router.push(`/employee/${id}`);
+    },
   },
   computed: mapState({ employees: state => state.employees }),
   created() {

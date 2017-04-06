@@ -10,7 +10,7 @@ Vue.use(Vuex);
 // each Vuex instance is just a single state tree.
 const state = {
   user: JSON.parse(sessionStorage.getItem('user')) || {},
-  employees: {},
+  employees: [],
 };
 
 // mutations are operations that actually mutates the state.
