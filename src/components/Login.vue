@@ -1,23 +1,19 @@
 <template>
   <el-card class="box-card login-card">
-    <img src="../assets/logo.png"
-        style="max-width: 100%; margin-bottom: 20px"
-    >
+    <img src="../assets/logo.png">
     <el-form :model="user" :rules="rules" ref="user">
       <el-form-item prop="email">
         <el-input
             placeholder="Enter your username"
             v-model="user.email"
-            type="email"
-          >
+            type="email">
         </el-input>
       </el-form-item>
       <el-form-item prop="password">
         <el-input
           placeholder="Enter your password"
           type="password"
-          v-model="user.password"
-        >
+          v-model="user.password">
         </el-input>
       </el-form-item>
 
@@ -87,26 +83,28 @@ export default {
         return false;
       });
     },
-    created() {
-    },
   },
 };
 </script>
 
 <style scoped>
-
+img {
+  max-width: 100%;
+  margin-bottom: 20px
+}
 
 div {
   max-width:340px;
 }
-  .login-card {
-    position: absolute;
-    margin: auto;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 350px;
-    max-height: 350px;
-  }
+
+.login-card {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 350px;
+  max-height: 350px;
+}
 </style>
