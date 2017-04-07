@@ -6,7 +6,6 @@
 </template>
 
 <script>
-// import http from '../services/http';
 import EmployeesTable from './EmployeesTable';
 
 export default {

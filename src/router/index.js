@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '@/components/Login';
-import Technologies from '@/components/Technologies';
+import Departments from '@/components/Departments/Departments';
 import Dashboard from '@/components/Dashboard';
 import Employees from '@/components/Employees/Employees';
 import Employee from '@/components/Employee/Employee';
@@ -13,10 +13,9 @@ const router = new Router({
   routes: [
     { path: '/login', component: Login, name: 'Login' },
     { path: '/dashboard', component: Dashboard, name: 'Dashboard' },
+    { path: '/departments', component: Departments, name: 'Departments' },
     { path: '/employees', component: Employees, name: 'Employees' },
     { path: '/employee/:uid', component: Employee },
-    // TODO these should be sub routes.
-    { path: '/technologies', component: Technologies, name: 'Technologies' },
     // 301 redirects
     { path: '/', redirect: '/dashboard' },
     { path: '*', redirect: '/dashboard' },

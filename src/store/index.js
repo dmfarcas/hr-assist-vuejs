@@ -11,6 +11,10 @@ Vue.use(Vuex);
 const state = {
   user: JSON.parse(sessionStorage.getItem('user')) || {},
   employees: [],
+  currentUserInformation: {},
+  company: {
+    departments: [],
+  },
 };
 
 // mutations are operations that actually mutates the state.
@@ -34,6 +38,15 @@ const mutations = {
   GET_TECHNOLOGIES(state, technologies) {
     state.currentTechnologies = technologies;
   },
+  GET_EMPLOYEE_BASIC_INFO(state, currentUserInformation) {
+    state.currentUserInformation = currentUserInformation;
+  },
+  GET_DEPARTMENTS(state, departments) {
+    state.company.departments = departments;
+  },
+  ADD_DEPARTMENT(state, department) {
+    state.company.departments.push(department);
+  },
 };
 
 // actions are functions that causes side effects and can involve
@@ -44,15 +57,9 @@ const actions = {
     // Returning a promise so we can .then in the Component.
     return new Promise((resolve, reject) => {
       http.post('login', user, ({ data }) => {
-        if (data.status === 'error') {
-          reject(data);
-        } else {
-          resolve(data.user);
-          commit('USER_LOGIN', data.user);
-        }
-      }, () => {
-        reject();
-      });
+        commit('USER_LOGIN', data.user);
+        resolve(data.user);
+      }, error => reject(error));
     });
   },
   USER_LOGOUT: ({ commit }) => {
@@ -69,6 +76,21 @@ const actions = {
   GET_TECHNOLOGIES: ({ commit }, uid) => {
     http.get(`projects/${uid}/technologies`, (technologies) => {
       commit('GET_TECHNOLOGIES', technologies.data);
+    }, (error) => { console.log(error); });
+  },
+  GET_EMPLOYEE_BASIC_INFO: ({ commit }, uid) => {
+    http.get(`users/${uid}`, (employeeInfo) => {
+      commit('GET_EMPLOYEE_BASIC_INFO', employeeInfo.data);
+    }, (error) => { console.log(error); });
+  },
+  GET_DEPARTMENTS: ({ commit }) => {
+    http.get('departments', (departments) => {
+      commit('GET_DEPARTMENTS', departments.data.items);
+    }, (error) => { console.log(error); });
+  },
+  ADD_DEPARTMENT: ({ commit }, department) => {
+    http.post('departments/new', () => {
+      commit('ADD_DEPARTMENT', department);
     }, (error) => { console.log(error); });
   },
 };

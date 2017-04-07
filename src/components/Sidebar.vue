@@ -18,6 +18,11 @@ export default {
           route: '/dashboard',
         },
         {
+          title: 'Departments',
+          icon: 'el-icon-menu',
+          route: '/departments',
+        },
+        {
           title: 'Projects',
           icon: 'el-icon-menu',
           route: '/projects',

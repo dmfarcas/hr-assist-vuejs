@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2>Employee techs</h2>
     {{currentTechnologies}}
   </div>
 </template>

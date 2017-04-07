@@ -35,7 +35,7 @@
     <template scope="scope">
       <el-button
         size="small"
-        @click="handleEdit(scope.$index, scope.row.id)">Edit</el-button>
+        @click="handleEdit(scope.$index, scope.row.id)"><i class="el-icon-edit"></i></el-button>
     </template>
   </el-table-column>
 </el-table>
@@ -43,7 +43,6 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import EmployeesTableEdit from './EmployeesTableEdit';
 
 export default {
   methods: {
@@ -58,7 +57,6 @@ export default {
   created() {
     this.GET_EMPLOYEES();
   },
-  components: { EmployeesTableEdit },
 };
 </script>
 
